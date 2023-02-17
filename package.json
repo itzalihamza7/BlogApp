@@ -1,0 +1,19 @@
+{
+  "name": "BlogApp",
+  "private": true,
+  "dependencies": {
+    "@rails/webpacker": "5.4.3",
+    "actiontext": "https://github.com/kobaltz/actiontext",
+    "cable_ready": "^5.0.0-pre9",
+    "chart.js": "^3.9.1",
+    "jquery": "^3.6.1",
+    "sortablejs": "^1.15.0",
+    "stimulus": "^3.1.0",
+    "stimulus_reflex": "3.4.1",
+    "webpack": "^4.46.0",
+    "webpack-cli": "^3.3.12"
+  },
+  "devDependencies": {
+    "webpack-dev-server": "^3"
+  }
+}
