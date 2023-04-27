@@ -1,0 +1,13 @@
+<%if @element.paragraph?%>
+$('#element-paragraph-<%= @element.id %>-form').hide();
+$('#element-content-<%= @element.id %>').html('<%= j render 'content', {element: @element} %>');
+
+
+<%end%>
+
+
+<%if @element.image?%>
+$('#element-image-<%= @element.id %>-form').hide();
+$('.element-image-<%= @element.id %>').html('<%= j render 'image', {element: @element} %>');
+
+<%end%>

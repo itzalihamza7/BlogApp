@@ -1,0 +1,36 @@
+<div class="suggestion-<%= suggestion.id %> container mb-5"
+    style="border: 1px solid black; padding: 1em; margin: 1em;">
+ <strong> <%= suggestion.user.username %></strong><br />
+  <% if (suggestion.updated_at - suggestion.created_at) > 1 %>
+    <small>Suggestion Edited <%= time_ago_in_words(suggestion.updated_at) %> ago</small>
+  <% else %>
+    <small>Suggestion Posted <%= time_ago_in_words(suggestion.created_at) %> ago</small>
+  <% end %>
+  <% if current_user == suggestion.user or current_user == post.user %>
+    <div class="btn-group float-right">
+    <% if current_user == suggestion.user %>
+      <%= link_to "Edit", nil, remote: true, class:"btn btn-warning",
+      data: {
+        controller: "suggestions",
+        action: "suggestions#toggleForm",
+        suggestions_form_param: "edit-form-#{suggestion.id}",
+        suggestions_body_param: "suggestion-body-#{suggestion.id}",
+        suggestions_edit_param: "edit-button-#{suggestion.id}"
+      },
+      id: "edit-button-#{suggestion.id}" %>
+      <% end %>
+      <%= button_to "Delete", [post, suggestion],remote: true, class:"ml-2 btn btn-danger", method: :delete %>
+    </div>
+    <div id="edit-form-<%= suggestion.id%>" class="d-none pb-5 mb-5 ">
+      <%= render 'readers/suggestions/form',
+       post: @post,
+       suggestion: suggestion,
+       submit_label: "Update"%>
+    </div>
+  <% end %>
+  <hr />
+  <div id="suggestion-body-<%= suggestion.id %>">
+    <%= suggestion.body %>
+  </div>
+
+</div>

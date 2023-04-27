@@ -1,0 +1,21 @@
+<div class="container">
+
+<div class="container ">
+<div id="comment-pane">
+  <% @comments.each do |comment| %>
+    <%= render 'readers/comments/comment',
+    post: @post,
+    comment: comment,
+    remote: true%>
+
+  <% end %>
+  </div>
+  </div>
+  <div class="container" id="c-body">
+  <%= render 'readers/comments/form',
+    post: @post,
+    comment: @post.comments.build,
+    submit_label: "Reply" ,
+    remote: true%>
+</div>
+</div>

@@ -1,0 +1,79 @@
+
+<div class="row">
+  <div class="col-md-4">
+    <%= link_to 'Back', authors_posts_path, class: 'btn btn-dark mb-3' %>
+    <div class="card">
+      <div class="card-header">
+        <h6 class='card-title mb-0'>Editing Post</h6>
+      </div>
+      <div class="card-body">
+        <%= render 'form', post: @post %>
+      </div>
+      <div class="card-footer">
+       <%=render partial: 'shared/publisher' ,locals: {post: @post}%>
+
+      </div>
+    </div>
+  </div>
+  <div class="col-md-8">
+    <div class="mb-3">
+      <%= form_with( model: [:authors ,@post, @element], html: { class: 'float-left mr-1' }) do |form| %>
+        <%= form.hidden_field :element_type, value: 'paragraph' %>
+        <%= button_tag(type: 'submit', class: 'btn btn-secondary') do %>
+          <i class="fa fa-paragraph"></i>
+        <% end %>
+      <% end %>
+      <%= form_with(model: [:authors ,@post, @element]) do |form| %>
+        <%= form.hidden_field :element_type, value: 'image' %>
+        <%= button_tag(type: 'submit', class: 'btn btn-secondary') do %>
+          <i class="fa fa-picture-o"></i>
+        <% end %>
+      <% end %>
+    </div>
+    <div class="card mb-5">
+      <div class="card-header text-right">
+        <% if @post.published? %>
+          <b>Published</b> <%= time_ago_in_words(@post.published_at) %> ago
+        <% else %>
+          Unpublished
+        <% end %>
+      </div>
+
+      <div class="card-body pt-5" data-controller="elements">
+        <% if @post.elements.none? { |element| element.persisted? } %>
+          <div class="p-4 text-center">
+            <h2 class='text-secondary'>
+              <i class="fas fa-lightbulb"></i>
+            </h2>
+            <p>Click the icons above to add elements to this post.</p>
+          </div>
+        <% else %>
+          <ul id='elements' data-action="drop->elements#sort">
+            <% @post.elements.order(position: :asc).each do |element| %>
+              <% if element.persisted? %>
+                <li data-id="<%= element.id %>" class='element-item'>
+                  <% if element.paragraph? %>
+                   <%=render partial: 'authors/elements/contentform' ,locals: {element: element}%>
+
+
+                  <% elsif element.image? %>
+                    <%=render partial: 'authors/elements/imageform' ,locals: {element: element}%>
+
+                  <% end %>
+                <% end %>
+              </li>
+            <% end %>
+          </ul>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+
+
+
+
+

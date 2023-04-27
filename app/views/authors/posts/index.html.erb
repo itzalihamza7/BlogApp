@@ -1,0 +1,8 @@
+<h4 class='d-flex justify-content-between mb-4'>
+  <span>Posts</span>
+  <%= link_to 'New Post', new_authors_post_path, class: 'btn btn-primary' %>
+</h4>
+
+<% @posts.each do |post| %>
+  <%=render partial: 'index' ,locals: {post: post}%>
+<% end %>

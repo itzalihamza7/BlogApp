@@ -1,0 +1,22 @@
+<h4 class='d-flex justify-content-between mb-4'>
+  <span>Blogs Feed</span>
+  <%= link_to 'Create New Post', new_authors_post_path, class: 'btn btn-primary' %>
+</h4>
+
+
+<div class="row">
+  <% @posts.each do |post| %>
+    <div class="col-md-6 col-lg-4">
+      <div class="card post-card">
+        <div class="header-image"> <%= image_tag(post.header_image,style: 'margin-left:18% ; width: 60%;') %>
+             </div>
+        <div class="card-body d-flex flex-column">
+          <h5 class="card-title"><%= post.title %></h5>
+          <h6 class="text-secondary float-right">By <%= post.user.username %></h6>
+          <p class="card-text"><%= truncate(post.description, length: 250) %></p>
+          <%= link_to "Read Post", post_path(post), class: 'btn btn-primary mt-auto' %>
+        </div>
+      </div>
+    </div>
+  <% end %>
+</div>

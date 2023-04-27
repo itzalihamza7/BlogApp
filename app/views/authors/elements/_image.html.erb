@@ -1,0 +1,12 @@
+
+         
+ <div class="element-image">
+                          <%= link_to authors_post_element_path(@post, element), method: :delete, class: 'delete-btn btn btn-dark mt-2 float-right', data: { confirm: "Are you sure?" } do %>
+
+
+                            <i class="fa fa-trash"></i>
+                          <% end %>
+
+
+                          <%= image_tag(element.image,style: 'margin: auto; width: 550px;')%>
+                        </div>

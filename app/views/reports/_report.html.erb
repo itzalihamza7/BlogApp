@@ -1,0 +1,11 @@
+<div id="report-pane-<%=reportable.id%>">
+
+          <%report = current_user.reports.find_by(reportable: reportable)%>
+          <%if report.nil?%>
+           <%= button_to "report", reports_path ,params: {report: {reportable_id: reportable.id,reportable_type: reportable.class.to_s}},method: :post,  class:'btn btn-warning float-right'%>
+
+          <%else%>
+            <%= button_to "reported", report_path(report.id),method: :delete,  class:'btn btn-danger float-right'%>
+
+          <%end%>
+</div>

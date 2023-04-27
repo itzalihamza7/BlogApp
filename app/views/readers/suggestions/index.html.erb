@@ -1,0 +1,61 @@
+
+<div class="row">
+  <div class="col-lg-10 offset-lg-1">
+    <div class="card post-card mb-5">
+      <div class="header-image" style="background-image: url(<%= url_for(@post.header_image) %>)"></div>
+      <div class="card-body">
+        <div class="pl-5 pr-5 pt-4 pb-4">
+ <h1 class="card-title mb-1">Suggestions on<strong> <%= @post.title%></strong> </h1>
+
+
+ <%= link_to "Back",  blog_post_path(@post), class: 'btn btn-light ' %>
+
+          <% @post.elements.each do |element| %>
+            <% if element.image? %>
+              <div class="image-element mb-5">
+                <%= image_tag(element.image,style: 'margin-left:18% ; width: 60%;')  if element.image.attached?%>
+              </div>
+            <% else %>
+              <div class="content-element mb-5">
+                <%= element.content %>
+              </div>
+            <% end %>
+          <% end %>
+          <div class="row">
+             <div class="col like-pane">
+         <%=render partial: 'likes/like' ,locals: {likeable: @post}%>
+          </div>
+            <div class="col report-pane">
+          <%=render partial: 'reports/report' ,locals: {reportable: @post}%>
+          </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="container">
+<h3 class="mb-5 ml-5 mt-5"> <i class="fa fa-lightbulb-o" aria-hidden="true"></i>&nbsp&nbsp&nbspAdd you honest sugggestions here to improve the blog</h3>
+
+<div class="container ">
+
+    <div id="suggestion-pane">
+      <% @suggestions.each do |suggestion| %>
+        <%= render 'readers/suggestions/suggestion',
+        post: @post,
+        suggestion: suggestion,
+        remote: true%>
+
+      <% end %>
+
+    </div>
+  </div>
+  <div class="container" id="s-body">
+  <%= render 'readers/suggestions/form',
+    post: @post,
+    suggestion: @post.suggestions.build,
+    submit_label: "Reply" ,
+    remote: true%>
+</div>
+</div>
+

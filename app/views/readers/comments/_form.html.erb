@@ -1,0 +1,6 @@
+<%= form_with(model: [post, comment],remote: true) do |f| %>
+  <div class="form-control mb-5 mt-5">
+    <%= f.rich_text_area :body %>
+    <%= f.submit submit_label, remote: true,class: "btn btn-primary  mt-1" %>
+  </div>
+<% end %>

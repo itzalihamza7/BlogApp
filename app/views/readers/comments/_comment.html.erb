@@ -1,0 +1,44 @@
+<div class="comment-<%= comment.id %> container mb-5"
+    style="border: 1px solid black; padding: 1em; margin: 1em;">
+  <strong><%= comment.user.username %></strong><br />
+  <% if (comment.updated_at - comment.created_at) > 1 %>
+    <small>Edited <%= time_ago_in_words(comment.updated_at) %> ago</small>
+  <% else %>
+    <small>Posted <%= time_ago_in_words(comment.created_at) %> ago</small>
+  <% end %>
+  <% if current_user == @post.user or current_user == comment.user %>
+    <div class="btn-group float-right">
+    <% if current_user == @post.user %>
+      <%= link_to "Edit", nil, remote: true, class:"btn btn-warning",
+      data: {
+        controller: "comments",
+        action: "comments#toggleForm",
+        comments_form_param: "edit-form-#{comment.id}",
+        comments_body_param: "comment-body-#{comment.id}",
+        comments_edit_param: "edit-button-#{comment.id}"
+      },
+      id: "edit-button-#{comment.id}" %>
+      <%end%>
+      <%= button_to "Delete", [post, comment],remote: true, class:"ml-2 btn btn-danger", method: :delete %>
+    </div>
+    <div id="edit-form-<%= comment.id%>" class="d-none pb-5 mb-5 ">
+      <%= render 'readers/comments/form',
+       post: @post,
+       comment: comment,
+       submit_label: "Update"%>
+    </div>
+  <% end %>
+<hr />
+  <div id="comment-body-<%= comment.id%>">
+    <%= comment.body %>
+  </div>
+<div class="row">
+             <div class="col like-pane">
+         <%=render partial: 'likes/like' ,locals: {likeable: comment}%>
+          </div>
+            <div class="col report-pane">
+          <%=render partial: 'reports/report' ,locals: {reportable: comment}%>
+          </div>
+          </div>
+
+</div>
